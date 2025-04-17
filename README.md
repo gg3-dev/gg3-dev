@@ -11,7 +11,7 @@ It contains internal tools, documentation, configuration standards, and reusable
 |--------------------------|------------------------------------------------------------------------------------------|
 | `gg3-docs`               | Homelab & infrastructure documentation (public)                                         |
 | `gg3utils`               | Shared Python tools for DevOps & system automation                                      |
-| `.gg3.conf`              | Private SSH config ([redacted version in 0xjuang/dotfiles](https://github.com/0xjuang/dotfiles)) |
+| `.gg3.conf` (Private)     | Private dotfiles repo for internal system setup (configs, SSH settings, etc.) |
 | *(Coming soon)*          | Jenkins pipeline scripts, Ansible roles, dotfiles bootstrap                            |
 
 ---
