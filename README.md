@@ -9,10 +9,11 @@ It contains internal tools, documentation, configuration standards, and reusable
 
 | Directory / Repo         | Purpose                                                                                  |
 |--------------------------|------------------------------------------------------------------------------------------|
-| `gg3-docs`               | Homelab & infrastructure documentation (public)                                         |
-| `gg3utils`               | Shared Python tools for DevOps & system automation                                      |
-| `.gg3.conf` (Private)     | Private dotfiles repo for internal system setup (configs, SSH settings, etc.) |
-| *(Coming soon)*          | Jenkins pipeline scripts, Ansible roles, dotfiles bootstrap                            |
+| `gg3-docs`               | Homelab & infrastructure documentation (public)                                          |
+| `gg3utils`               | Shared Python and Bash tools for DevOps, automation, and networking utilities            |
+| `gg3-admin-tools`        | Bash administrative tools for dotfiles deployment, SSH key management, and system bootstrap |
+| `.gg3.conf` (Private)     | Private dotfiles repo for internal system setup (configs, SSH settings, etc.)             |
+| *(Coming soon)*          | Jenkins pipeline scripts, Ansible roles, additional automation tools                      |
 
 ---
 
@@ -33,7 +34,7 @@ It contains internal tools, documentation, configuration standards, and reusable
 
 ### 🔄 Automation & DevOps
 - **Jenkins**: Triggered jobs for VM snapshots, future CI/CD workflows
-- **Python (gg3utils)**: Home-grown scripts for deployment, backups, and file sync
+- **Python & Bash Tools (gg3utils, gg3-admin-tools)**: Home-grown scripts for deployment, backups, and system setup
 - **Future**: Ansible-based provisioning and infrastructure-as-code
 
 ### 🗄️ File Services
@@ -77,4 +78,3 @@ Security is prioritized from naming convention to key isolation to TLS policy.
 ---
 
 _Curated under the GG3 Infrastructure Stack – designed for reproducibility, auditability, and clarity._
-
