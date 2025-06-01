@@ -1,80 +1,97 @@
-# ⚙️ GG3 Infrastructure · `gg3-dev`
+# DevSecOps Infrastructure · GG3-DevNet
 
-This is the home of Juan Garcia's professional infrastructure stack, managed under the `gg3-dev` namespace.  
-It contains internal tools, documentation, configuration standards, and reusable automation scripts that power the GG3 Lab and Oak Root Collective.
+_Automated systems. Hardened configs. Terminal-native tooling._
 
----
-
-## 🧱 What's Inside
-
-| Directory / Repo         | Purpose                                                                                  |
-|--------------------------|------------------------------------------------------------------------------------------|
-| `gg3-docs`               | Homelab & infrastructure documentation (public)                                          |
-| `gg3utils`               | Shared Python and Bash tools for DevOps, automation, and networking utilities            |
-| `gg3-admin-tools`        | Bash administrative tools for dotfiles deployment, SSH key management, and system bootstrap |
-| `.gg3.conf` (Private)     | Private dotfiles repo for internal system setup (configs, SSH settings, etc.)             |
-| *(Coming soon)*          | Jenkins pipeline scripts, Ansible roles, additional automation tools                      |
-
----
-
-## 🧰 Tech Stack
-
-### 🖥️ Hypervisor & Virtualization
-- **XCP-ng**: Open-source hypervisor for all production VMs
-- **Xen Orchestra (XOA)**: Self-hosted web UI to manage VM lifecycle, snapshots, and metrics
-
-### 🌐 Web & Proxy Services
-- **NGINX**: Reverse proxy, static site hosting, and HTTPS termination
-- **Certbot + Let's Encrypt**: Automated TLS certificate issuance using DNS-01 validation
-
-### 🔐 Access & Security
-- **SSH**: Key-based authentication with host isolation and role separation
-- **Tailscale**: Temporary remote access while WireGuard and pfSense are in development
-- **Custom SSH Config**: Separated `.gg3.conf` for internal-only environments
-
-### 🔄 Automation & DevOps
-- **Jenkins**: Triggered jobs for VM snapshots, future CI/CD workflows
-- **Python & Bash Tools (gg3utils, gg3-admin-tools)**: Home-grown scripts for deployment, backups, and system setup
-- **Future**: Ansible-based provisioning and infrastructure-as-code
-
-### 🗄️ File Services
-- **Samba (SMB)**: Internal file sharing across devices (Mac, Linux, iPad)
-- **vsftpd (Deprecated)**: Initially used, now fully removed
-- **SFTP (OpenSSH)**: Secure replacement with user-chrooted access planned
+![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffffff)
+![Bash](https://img.shields.io/badge/Bash-121011?style=for-the-badge&logo=gnubash&logoColor=white)
+![Puppet](https://img.shields.io/badge/Puppet-302B6D?style=for-the-badge&logo=puppet&logoColor=yellow)
+![NGINX](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
+![XCP-ng](https://img.shields.io/badge/XCP--ng-003399.svg?style=for-the-badge&logo=rocket&logoColor=white)
+![Tailscale](https://img.shields.io/badge/Tailscale-242424.svg?style=for-the-badge&logo=Tailscale&logoColor=white)
+![Debian](https://img.shields.io/badge/Debian-A81D33.svg?style=for-the-badge&logo=Debian&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624.svg?style=for-the-badge&logo=linux&logoColor=black)
+![Zsh](https://img.shields.io/badge/Zsh-F15A24.svg?style=for-the-badge&logo=Zsh&logoColor=white)
+![Vim](https://img.shields.io/badge/Vim-019733.svg?style=for-the-badge&logo=Vim&logoColor=white)
+![tmux](https://img.shields.io/badge/tmux-1BB91F.svg?style=for-the-badge&logo=tmux&logoColor=white)
+![Markdown](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
 
 ---
 
-## 👤 Identity & Scope
+## 🧰 What's Inside
 
-This organization supports infrastructure managed by:
+This GitHub organization contains the actual infrastructure stack powering GG3-DevNet — a homelab-based environment for DevOps, security, and system engineering practice. Everything here is tested in production-like conditions with a focus on auditability, reproducibility, and secure defaults.
 
-- **Juan Garcia** (`@0xjuang`)
-- Operator handle: `0x1G`
-- Project alias: **GG3 Lab**
-- Org: **Oak Root Collective**
-
-This is the backend environment supporting scripting, experimentation, DevOps learning, and secure growth.
-
----
-
-## 🔐 Private Infrastructure Philosophy
-
-All public-facing code and docs here are:
-
-- Redacted for privacy (see: `gg3-sanitization-guide.md`)
-- Meant for demonstration, education, and future automation reuse
-- Managed intentionally with reproducibility, security, and clarity in mind
-
-Security is prioritized from naming convention to key isolation to TLS policy.
+```sh
+~/gg3-dev
+├── gg3-docs         # system architecture, firewall policies, SSH setup
+├── gg3utils         # network tools, port scanners, UFW checkers (Python/Bash)
+├── gg3-admin-tools  # bootstrap scripts, SSH key management, dotfiles deploy
+├── puppet-modules   # config management for Debian servers (in progress)
+└── .gg3.conf        # internal-only: shell config, install scripts, redacted from public
+```
 
 ---
 
-## 🌐 Related Public Profiles
+## 🔧 Infra Components
 
-- GitHub (public persona): [github.com/0xjuang](https://github.com/0xjuang)
-- Website: [info.gg3.dev](https://info.gg3.dev)
-- Core Org: [Oak Root Collective](https://oak-root.dev) *(coming soon)*
+- **XCP-ng** — Bare-metal hypervisor w/ static IP segmentation and manual snapshot control  
+- **Puppet** — WIP modules for enforcing packages, user config, and service states  
+- **NGINX** — Hardened TLS web proxy and Certbot-enabled static site hosting  
+- **UFW** — Host-level firewalls locked to key-based SSH only  
+- **Tailscale** — Temporary fallback access until WireGuard is deployed  
+- **Bash & Python** — Health checks, audits, and provisioning tools run entirely in terminal
 
 ---
 
-_Curated under the GG3 Infrastructure Stack – designed for reproducibility, auditability, and clarity._
+## 🔐 DevSecOps Practices
+
+```sh
+# Scan critical range
+nmap -sS 10.0.0.0/24
+
+# Check UFW and verify port lock
+sudo ufw status verbose
+
+# Deploy internal config
+sudo ./deploy.sh --env dev
+```
+
+- SSH key auth only — namespaced by function and host  
+- Firewalls deny all except pre-approved ports  
+- TLS enforced with manual NGINX hardening  
+- Dotfiles tracked and deployed like code  
+- All config changes documented in plaintext and Markdown
+
+---
+
+## 📂 Active Projects
+
+| Repo                | Role                                                             |
+|---------------------|------------------------------------------------------------------|
+| `gg3-docs`          | Lab architecture, config standards, SSH key layout               |
+| `gg3utils`          | Terminal-native tooling for audits, scans, and monitoring        |
+| `gg3-admin-tools`   | ZSH/bootstrap automation, SSH key rotation, deploy helpers       |
+| `puppet-modules`    | Declarative state management (packages, users, services)         |
+
+---
+
+## 🧑‍💻 Maintainer
+
+Juan Garcia — `@0x1G` / [`0xjuang`](https://github.com/0xjuang)  
+- Email: [juan@gg3.dev](mailto:juan@gg3.dev)  
+- Site: [about.gg3.dev](https://about.gg3.dev)  
+- LinkedIn: [linkedin.com/in/0xjuang](https://linkedin.com/in/0xjuang)
+
+---
+
+## 🔐 Notes on Privacy & Structure
+
+- No internal IPs, DNS names, or secrets are exposed  
+- All tools are used actively — nothing speculative or aspirational  
+- Designed to be portable across Debian systems and lab-scale deployments  
+
+> Infrastructure shouldn’t lie. What’s here reflects what’s running.
+
+---
+
+_Last updated: June 2025 · Signed: 0x1G_
